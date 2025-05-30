@@ -1,13 +1,12 @@
 package brided.fr.furrygame;
 
+import brided.fr.furrygame.gameLogic.navigation.Hotspot;
+import brided.fr.furrygame.gameLogic.navigation.Room;
+import brided.fr.furrygame.gameLogic.navigation.RoomsLayout;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -16,20 +15,18 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private FitViewport viewport;
 
-    private Texture gecko;
-    private Texture desertBack;
-    private BitmapFont font;
+    private Room currentRoom;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        viewport = new FitViewport(800, 500);
+        viewport = new FitViewport(640, 480);
 
-        gecko = new Texture("gecko.png");
-        desertBack = new Texture("ernestDrawnMore6.png");
-        font = new BitmapFont();
+        currentRoom = RoomsLayout.room1;
+    }
 
-        font.setColor(Color.BLACK);
+    public void setCurrentRoom(Room room) {
+        this.currentRoom = room;
     }
 
     @Override
@@ -44,12 +41,18 @@ public class Main extends ApplicationAdapter {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 
-        batch.draw(desertBack, 0, 0, worldWidth, worldHeight);
+        batch.draw(currentRoom.background,0,0, worldWidth, worldHeight);
 
-        batch.draw(gecko, 140, 210);
-        batch.draw(gecko, 170, 100);
+        if (Gdx.input.justTouched()) {
+            Vector2 touch = new Vector2(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
 
-        font.draw(batch, "I'm horny", 100, 100);
+            for (Hotspot hotspot : currentRoom.hotspots) {
+                if (hotspot.bounds.contains(touch)) {
+                    hotspot.action.execute(this);
+                    break;
+                }
+            }
+        }
 
         batch.end();
     }
@@ -57,8 +60,6 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        gecko.dispose();
-        desertBack.dispose();
-        font.dispose();
+        currentRoom.dispose();
     }
 }
