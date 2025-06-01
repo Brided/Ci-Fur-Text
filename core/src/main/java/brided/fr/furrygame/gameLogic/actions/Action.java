@@ -4,10 +4,9 @@ import brided.fr.furrygame.Main;
 import brided.fr.furrygame.gameLogic.navigation.Room;
 
 public class Action {
-    public String name;
-    public ActionType actionType;
-    public String text;
-    public Room targetRoom;
+    private final String name;
+    private final ActionType actionType;
+    private String text;
 
     public Action(String name, String text) {
         this.name = name;
@@ -18,7 +17,6 @@ public class Action {
     public Action(String name, Room room) {
         this.name = name;
         this.actionType = ActionType.GO_ROOM;
-        this.targetRoom = room;
     }
 
     public void execute(Main main) {
@@ -26,8 +24,8 @@ public class Action {
             case TEXT:
                 System.out.println(text);
                 break;
-            case GO_ROOM:
-                main.setCurrentRoom(targetRoom);
+            default:
+                break;
         }
     }
 
