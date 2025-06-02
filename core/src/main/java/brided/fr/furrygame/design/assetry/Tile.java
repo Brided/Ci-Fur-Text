@@ -14,16 +14,4 @@ public class Tile{
     public String getType() {
         return Type;
     }
-
-    /*public void render(SpriteBatch batch, float x, float y) {
-        batch.draw(texture, x, y);
-    }
-
-    public void dispose() {
-        texture.getTexture().dispose();
-    }
-
-    public TextureRegion getTexture() {
-        return texture;
-    }*/
 }

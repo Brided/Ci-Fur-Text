@@ -1,4 +1,4 @@
-package brided.fr.furrygame;
+package brided.fr.furrygame.mains;
 
 import brided.fr.furrygame.design.assetry.Furacter;
 import brided.fr.furrygame.design.assetry.Tile;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Main extends ApplicationAdapter {
+public class PlayingMain extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
     private Viewport viewport;
     private Camera camera;

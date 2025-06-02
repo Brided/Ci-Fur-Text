@@ -46,13 +46,22 @@ dependencies {
 }
 
 def os = System.properties['os.name'].toLowerCase()
-
 run {
   workingDir = rootProject.file('assets').path
 // You can uncomment the next line if your IDE claims a build failure even when the app closed properly.
   //setIgnoreExitValue(true)
 
   if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
+}
+
+tasks.register('runPlaying') {
+  group("application")
+  description = 'Run the game'
+}
+
+tasks.register('runEditing') {
+  group("application")
+  description = 'Run the editor'
 }
 
 jar {

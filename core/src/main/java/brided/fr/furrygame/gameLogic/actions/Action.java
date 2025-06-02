@@ -1,6 +1,6 @@
 package brided.fr.furrygame.gameLogic.actions;
 
-import brided.fr.furrygame.Main;
+import brided.fr.furrygame.mains.PlayingMain;
 import brided.fr.furrygame.design.worldBuild.Room;
 
 public class Action {
@@ -19,7 +19,7 @@ public class Action {
         this.actionType = ActionType.GO_ROOM;
     }
 
-    public void execute(Main main) {
+    public void execute(PlayingMain main) {
         switch (actionType) {
             case TEXT:
                 System.out.println(text);
