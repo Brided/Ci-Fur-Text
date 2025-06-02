@@ -30,8 +30,5 @@ public class Action {
     }
 
     @Override
-    public String toString() {
-        return name + " " + text;
-    }
-
+    public String toString() { return name + " " + text; }
 }

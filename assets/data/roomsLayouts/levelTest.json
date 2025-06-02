@@ -1,0 +1,20 @@
+{
+  "tileset_texture": "textures/tileSheets/tileSheetTest.png",
+  "tiles": [
+    {
+      "type": 0,
+      "texture": "tile_0_2",
+      "terrain": "grass"
+    },
+    {
+      "type": 1,
+      "texture": "tile_0_0",
+      "terrain": "wall"
+    }
+  ],
+  "background": [
+    [0,0,1,1,0],
+    [0,1,1,1,0]
+  ],
+  "playerStart": { "x": 2, "y": 1 }
+}

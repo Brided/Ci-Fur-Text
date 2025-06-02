@@ -1,19 +1,15 @@
 package brided.fr.furrygame.design.worldBuild;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class RoomsLayout {
-    public Map<Room, String> rooms;
+    private final ArrayList<Room> rooms;
 
-    public RoomsLayout(Map<Room, String> rooms) {
-        this.rooms = new HashMap<>();
+    public RoomsLayout() {
+        this.rooms = new ArrayList<>();
     }
 
-    public void addRoom(String roomName, String textureName) {
-        // TODO: rooms
-        Room added = new Room(roomName, null);
-
-        this.rooms.put(added, roomName);
+    public void addRoom(Room room) {
+        this.rooms.add(room);
     }
 }

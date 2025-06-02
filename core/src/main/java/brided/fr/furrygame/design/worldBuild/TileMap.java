@@ -8,9 +8,9 @@ public class TileMap {
     private final int height;
     private final int width;
 
-    public TileMap(int height, int width) {
-        this.height = height;
+    public TileMap(int width, int height) {
         this.width = width;
+        this.height = height;
 
         this.mapping = new Tile[width][height];
     }
@@ -23,8 +23,6 @@ public class TileMap {
             if (mapping[x][y] == null) {
                 continue;
             }
-
-            batch.draw(mapping[x][y].getTexture(), Tile.TILE_SIZE * x, Tile.TILE_SIZE * y);
         }
     }
 

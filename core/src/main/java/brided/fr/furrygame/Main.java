@@ -11,11 +11,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
     private Viewport viewport;
@@ -33,21 +33,23 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        Gdx.graphics.setTitle("CyFur Effect");
+
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new ScreenViewport(camera);
 
         bull = new Furacter(
             "Teagan", 0,0,
-            new Texture("characterSprites/rpgBullFacing_Left.png"),
-            new Texture("characterSprites/rpgBullFacing_Right.png"),
-            new Texture("characterSprites/rpgBullFacing_Up.png"),
-            new Texture("characterSprites/rpgBullFacing_Down.png")
+            new Texture("textures/characterSprites/rpgBullFacing_Left.png"),
+            new Texture("textures/characterSprites/rpgBullFacing_Right.png"),
+            new Texture("textures/characterSprites/rpgBullFacing_Up.png"),
+            new Texture("textures/characterSprites/rpgBullFacing_Down.png")
         );
 
-        tileSet = new TileSet(new Texture("tileSheets/tileSheetTest.png"));
-        tile = tileSet.getTile("tile_0_2");
-        tile2 = tileSet.getTile("tile_0_0");
+        tileSet = new TileSet("textures/tileSheets/tileSheetTest.png");
+        tileSet.addTile("tile_0_2", "grass");
+        tileSet.addTile("tile_0_0", "wood");
 
         tileMap = new TileMap(10, 10);
         tileMap.setTile(tile,0,0);
@@ -55,6 +57,14 @@ public class Main extends ApplicationAdapter {
         tileMap.setTile(tile2,0,1);
         tileMap.setTile(tile2,2,3);
         tileMap.setTile(tile2,4,3);
+
+        Json json = new Json();
+
+        String text = json.toJson(tileMap, TileMap.class);
+        System.out.println("Tile map\n" + json.prettyPrint(text));
+
+        text = json.toJson(tileSet, TileSet.class);
+        System.out.println("Tile set\n" +json.prettyPrint(text));
     }
 
     @Override
@@ -104,6 +114,5 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         spriteBatch.dispose();
         bull.dispose();
-        tile.dispose();
     }
 }

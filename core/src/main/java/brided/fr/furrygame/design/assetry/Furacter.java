@@ -14,6 +14,7 @@ public class Furacter implements Disposable {
 
     private float x;
     private float y;
+    private float z;
 
     private Direction currentDirection;
 
@@ -23,12 +24,16 @@ public class Furacter implements Disposable {
 
     public Furacter(String name, float startX, float startY, Texture left, Texture right, Texture up, Texture down) {
         this.name = name;
+
         this.x = startX;
         this.y = startY;
+        this.z = 0;
+
         this.facingLeft = left;
         this.facingRight = right;
         this.facingUp = up;
         this.facingDown = down;
+
         this.currentDirection = Direction.DOWN; // default
     }
 
