@@ -1,6 +1,9 @@
 package brided.fr.furrygame;
 
-import brided.fr.furrygame.gameLogic.characters.Furacter;
+import brided.fr.furrygame.design.assetry.Furacter;
+import brided.fr.furrygame.design.assetry.Tile;
+import brided.fr.furrygame.design.assetry.TileSet;
+import brided.fr.furrygame.design.worldBuild.TileMap;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,6 +23,12 @@ public class Main extends ApplicationAdapter {
 
     private Furacter bull;
 
+    private TileSet tileSet;
+    private Tile tile;
+    private Tile tile2;
+
+    private TileMap tileMap;
+
     private float delta;
 
     @Override
@@ -35,6 +44,17 @@ public class Main extends ApplicationAdapter {
             new Texture("characterSprites/rpgBullFacing_Up.png"),
             new Texture("characterSprites/rpgBullFacing_Down.png")
         );
+
+        tileSet = new TileSet(new Texture("tileSheets/tileSheetTest.png"));
+        tile = tileSet.getTile("tile_0_2");
+        tile2 = tileSet.getTile("tile_0_0");
+
+        tileMap = new TileMap(10, 10);
+        tileMap.setTile(tile,0,0);
+        tileMap.setTile(tile,1,5);
+        tileMap.setTile(tile2,0,1);
+        tileMap.setTile(tile2,2,3);
+        tileMap.setTile(tile2,4,3);
     }
 
     @Override
@@ -69,6 +89,7 @@ public class Main extends ApplicationAdapter {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 
+        tileMap.render(spriteBatch);
         bull.render(spriteBatch);
 
         spriteBatch.end();
@@ -83,5 +104,6 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         spriteBatch.dispose();
         bull.dispose();
+        tile.dispose();
     }
 }

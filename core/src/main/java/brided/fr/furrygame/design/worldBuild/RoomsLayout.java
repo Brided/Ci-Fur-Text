@@ -1,4 +1,4 @@
-package brided.fr.furrygame.gameLogic.navigation;
+package brided.fr.furrygame.design.worldBuild;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,8 @@ public class RoomsLayout {
     }
 
     public void addRoom(String roomName, String textureName) {
-        Room added = new Room(roomName, textureName);
+        // TODO: rooms
+        Room added = new Room(roomName, null);
 
         this.rooms.put(added, roomName);
     }

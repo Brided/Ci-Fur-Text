@@ -1,9 +1,10 @@
-package brided.fr.furrygame.gameLogic.characters;
+package brided.fr.furrygame.design.assetry;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Furacter {
+public class Furacter implements Disposable {
     private final String name;
 
     private final Texture facingLeft;
@@ -58,6 +59,7 @@ public class Furacter {
     public float getX() { return x; }
     public float getY() { return y; }
 
+    @Override
     public void dispose() {
         facingLeft.dispose();
         facingRight.dispose();

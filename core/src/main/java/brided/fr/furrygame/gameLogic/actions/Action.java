@@ -1,7 +1,7 @@
 package brided.fr.furrygame.gameLogic.actions;
 
 import brided.fr.furrygame.Main;
-import brided.fr.furrygame.gameLogic.navigation.Room;
+import brided.fr.furrygame.design.worldBuild.Room;
 
 public class Action {
     private final String name;
