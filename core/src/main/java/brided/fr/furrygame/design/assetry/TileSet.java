@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class TileSet {
     private HashMap<String, Tile> tiles;
@@ -20,6 +19,7 @@ public class TileSet {
         this.setName = setName;
 
         this.tileSheet = new Texture(textureSheetLocation);
+        tileSheet.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
     }
 
     public void addTile(String name, Tile tile) {
@@ -44,7 +44,6 @@ public class TileSet {
             for (int col = 0; col < regions[0].length; col++) {
                 String name = setName + "_" + row + "_" + col;
                 Tile tile = new Tile(name, setName, regions[row][col]);
-                System.out.println(name);
 
                 this.addTile(name, tile);
             }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Room {
     private final String roomName;
-    private TileSet tileSet;
     private ArrayList<String> tileKeys;
 
     private final int width;
@@ -22,7 +21,6 @@ public class Room {
 
     public Room(String roomName, TileSet tileSet, int width, int height) {
         this.roomName = roomName;
-        this.tileSet = tileSet;
         this.tileKeys = tileSet.getKeySet();
 
         this.width = width;
@@ -53,4 +51,12 @@ public class Room {
         Json json = new Json();
         return json.prettyPrint(json.toJson(this, Room.class));
     }
+
+    public TileMap getBackground() { return background; }
+
+    public TileMap getWalls() { return walls; }
+
+    public TileMap getDecorations() { return decorations; }
+
+    public TileMap getHazards() { return hazards; }
 }

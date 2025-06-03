@@ -8,18 +8,18 @@ public class Tile implements Disposable {
     public static final int TILE_SIZE = 64;
 
     private String textureName;
-    private String Type;
+    private String type;
 
     private transient TextureRegion texture;
 
     public Tile(String textureName, String type, TextureRegion texture) {
         this.textureName = textureName;
-        Type = type;
+        this.type = type;
         this.texture = texture;
     }
 
     public String getTextureName() { return textureName; }
-    public String getType() { return Type; }
+    public String getType() { return type; }
 
 
     public void render(SpriteBatch batch, float x, float y) {

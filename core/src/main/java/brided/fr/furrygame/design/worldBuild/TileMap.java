@@ -27,7 +27,13 @@ public class TileMap {
         }
     }
 
-    public void setTile(Tile tile, int x, int y) { mapping[x][y] = tile; }
+    public void setTile(Tile tile, int x, int y) {
+        if (x < 0 || width < x || y < 0 || height < y) {
+            return;
+        }
+
+        mapping[x][y] = tile;
+    }
 
     public void fillAll(Tile tile) {
         for (int i = 0; i < width * height; i++) {
