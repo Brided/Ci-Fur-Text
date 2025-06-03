@@ -24,8 +24,6 @@ public class PlayingMain extends ApplicationAdapter {
     private Furacter bull;
 
     private TileSet tileSet;
-    private Tile tile;
-    private Tile tile2;
 
     private TileMap tileMap;
 
@@ -47,16 +45,10 @@ public class PlayingMain extends ApplicationAdapter {
             new Texture("textures/characterSprites/rpgBullFacing_Down.png")
         );
 
-        tileSet = new TileSet("textures/tileSheets/tileSheetTest.png");
-        tileSet.addTile("tile_0_2", "grass");
-        tileSet.addTile("tile_0_0", "wood");
+        tileSet = new TileSet("textures/tileSheets/tileSheetTest.png", "misc");
+        tileSet.load();
 
         tileMap = new TileMap(10, 10);
-        tileMap.setTile(tile,0,0);
-        tileMap.setTile(tile,1,5);
-        tileMap.setTile(tile2,0,1);
-        tileMap.setTile(tile2,2,3);
-        tileMap.setTile(tile2,4,3);
 
         Json json = new Json();
 

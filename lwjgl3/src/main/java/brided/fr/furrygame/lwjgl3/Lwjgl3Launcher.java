@@ -1,5 +1,6 @@
 package brided.fr.furrygame.lwjgl3;
 
+import brided.fr.furrygame.mains.EditingMain;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import brided.fr.furrygame.mains.PlayingMain;
@@ -8,11 +9,14 @@ import brided.fr.furrygame.mains.PlayingMain;
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
-        createApplication();
-    }
 
-    private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new PlayingMain(), getDefaultConfiguration());
+        String mode = (args.length > 0) ? args[0] : "play";
+
+        if (mode.equals("edit")) {
+            new Lwjgl3Application(new EditingMain(), getDefaultConfiguration());
+        } else {
+            new Lwjgl3Application(new PlayingMain(), getDefaultConfiguration());
+        }
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {

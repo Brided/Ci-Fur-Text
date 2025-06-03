@@ -48,20 +48,35 @@ dependencies {
 def os = System.properties['os.name'].toLowerCase()
 run {
   workingDir = rootProject.file('assets').path
-// You can uncomment the next line if your IDE claims a build failure even when the app closed properly.
-  //setIgnoreExitValue(true)
+  setIgnoreExitValue(true)
 
   if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
 }
 
-tasks.register('runPlaying') {
+tasks.register('runPlaying', JavaExec) {
   group("application")
   description = 'Run the game'
+
+  setIgnoreExitValue(true)
+  classpath = sourceSets.main.runtimeClasspath
+  mainClass = 'brided.fr.furrygame.lwjgl3.Lwjgl3Launcher'
+
+  args = ["play"]
+
+  if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
 }
 
-tasks.register('runEditing') {
+tasks.register('runEditing', JavaExec) {
   group("application")
   description = 'Run the editor'
+
+  setIgnoreExitValue(true)
+  classpath = sourceSets.main.runtimeClasspath
+  mainClass = 'brided.fr.furrygame.lwjgl3.Lwjgl3Launcher'
+
+  args = ["edit"]
+
+  if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
 }
 
 jar {
