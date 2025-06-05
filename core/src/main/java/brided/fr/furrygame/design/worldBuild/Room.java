@@ -1,13 +1,23 @@
 package brided.fr.furrygame.design.worldBuild;
 
+import brided.fr.furrygame.dataManaging.saving.JsonSaving;
+import brided.fr.furrygame.dataManaging.saving.JsonSerializable;
 import brided.fr.furrygame.design.assetry.Tile;
 import brided.fr.furrygame.design.assetry.TileSet;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Json;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements JsonSerializable {
     private final String roomName;
     private ArrayList<String> tileKeys;
 
@@ -50,6 +60,11 @@ public class Room {
     public String toJson() {
         Json json = new Json();
         return json.prettyPrint(json.toJson(this, Room.class));
+    }
+
+    public void saveJsonToFile() {
+        JsonSaving<Room> jsonSaving = new JsonSaving<>(this);
+        jsonSaving.saveWithDialog();
     }
 
     public TileMap getBackground() { return background; }

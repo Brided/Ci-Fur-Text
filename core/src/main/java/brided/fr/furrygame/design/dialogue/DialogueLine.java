@@ -1,4 +1,4 @@
-package brided.fr.furrygame.gameLogic.dialogue;
+package brided.fr.furrygame.design.dialogue;
 
 import java.util.List;
 

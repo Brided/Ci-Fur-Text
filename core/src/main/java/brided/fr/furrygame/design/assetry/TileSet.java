@@ -33,6 +33,10 @@ public class TileSet {
     }
 
     public Tile getAt (int index) {
+        if (index < 0 || getKeySet().size() <= index) {
+            return null;
+        }
+
         String indexed = getKeySet().get(index);
         return getTile(indexed);
     }

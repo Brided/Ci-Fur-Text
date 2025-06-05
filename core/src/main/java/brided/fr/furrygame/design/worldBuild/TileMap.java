@@ -1,7 +1,6 @@
 package brided.fr.furrygame.design.worldBuild;
 
 import brided.fr.furrygame.design.assetry.Tile;
-import brided.fr.furrygame.design.assetry.TileSet;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TileMap {

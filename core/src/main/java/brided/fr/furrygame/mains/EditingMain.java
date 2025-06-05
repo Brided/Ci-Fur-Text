@@ -6,7 +6,9 @@ import brided.fr.furrygame.design.worldBuild.Room;
 import brided.fr.furrygame.design.worldBuild.TileMap;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,6 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class EditingMain extends ApplicationAdapter {
     private Stage stage;
@@ -32,6 +37,7 @@ public class EditingMain extends ApplicationAdapter {
     private TileMap editingGrid;
     private TileSet gridTileSet;
     private Tile singleTile;
+    private Tile selectedTile;
 
     private int width = 100;
     private int height = 100;
@@ -39,10 +45,11 @@ public class EditingMain extends ApplicationAdapter {
     InputMultiplexer inputMultiplexer;
 
     private TextButton button;
+    private int selectedBlock;
 
     @Override
     public void create() {
-        Gdx.graphics.setTitle("CyFur Effect");
+        Gdx.graphics.setTitle("CyFur Effect-Editing");
 
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -57,7 +64,13 @@ public class EditingMain extends ApplicationAdapter {
         gridTileSet.load();
         singleTile = gridTileSet.getAt(0);
 
-        button = new TextButton("Click me", new Skin(Gdx.files.internal("uiskin.json")));
+        worldTileSet = new TileSet("textures/tileSheets/tileSheetTest.png", "testing");
+        worldTileSet.load();
+
+        selectedBlock = 0;
+        selectedTile = worldTileSet.getAt(0);
+
+        button = new TextButton("", new Skin(Gdx.files.internal("uiskin.json")));
         button.setPosition(10, 10);
         button.addListener(new ClickListener() {
             @Override
@@ -65,10 +78,9 @@ public class EditingMain extends ApplicationAdapter {
                 System.out.println("Button clicked!");
             }
         });
+
         stage.addActor(button);
 
-        worldTileSet = new TileSet("textures/tileSheets/tileSheetTest.png", "testing");
-        worldTileSet.load();
 
         editingGrid = TileMap.createGridMap(singleTile, width, height);
         room = new Room("editing_room", worldTileSet, width, height);
@@ -102,7 +114,7 @@ public class EditingMain extends ApplicationAdapter {
                     int cellX = (int)(worldPos.x / Tile.TILE_SIZE);
                     int cellY = (int)(worldPos.y / Tile.TILE_SIZE);
 
-                    room.getBackground().setTile(worldTileSet.getAt(3), cellX, cellY);
+                    room.getBackground().setTile(selectedTile, cellX, cellY);
                     return true;
                 } else if (button == 1) {
                     lastX = screenX;
@@ -116,7 +128,6 @@ public class EditingMain extends ApplicationAdapter {
 
             @Override
             public boolean scrolled(float amountX, float amountY) {
-                // amountY is usually the vertical scroll direction
                 zoom(amountY);
                 return true;
             }
@@ -136,6 +147,23 @@ public class EditingMain extends ApplicationAdapter {
                 lastY = screenY;
                 return true;
             }
+
+            @Override
+            public boolean keyDown (int keycode) {
+                if (keycode == Input.Keys.Q) {
+                    selectedBlock--;
+                } else if (keycode == Input.Keys.E) {
+                    selectedBlock ++;
+                } else if (keycode == Input.Keys.S && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+                    room.saveJsonToFile();
+                    return true;
+                } else {
+                    return false;
+                }
+
+                selectedTile = worldTileSet.getAt(selectedBlock);
+                return true;
+            }
         });
 
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -143,7 +171,6 @@ public class EditingMain extends ApplicationAdapter {
 
     private void zoom(float amountY) {
         camera.zoom += amountY * 0.1f;
-
         camera.zoom = MathUtils.clamp(camera.zoom, 0.5f, 4f);
     }
 
@@ -165,6 +192,8 @@ public class EditingMain extends ApplicationAdapter {
 
         spriteBatch.end();
 
+        button.setText(getButtonText());
+        button.pack();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
@@ -179,5 +208,12 @@ public class EditingMain extends ApplicationAdapter {
     public void dispose() {
         spriteBatch.dispose();
         singleTile.dispose();
+    }
+
+    private String getButtonText() {
+        String name = (selectedTile != null) ?
+            selectedTile.getTextureName() : null;
+
+        return "Block: " + selectedBlock + " " + name;
     }
 }
